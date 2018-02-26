@@ -8,6 +8,6 @@ namespace StockTradingSystem
 {
     public interface IDisplay
     {
-        void Display(Portfolio portfolio);
+        void Display(Stock stock);
     }
 }

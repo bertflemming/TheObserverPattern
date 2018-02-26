@@ -10,11 +10,16 @@ namespace StockTradingSystem
     {
         public void Update(Subject subject)
         {
-            Portfolio portfolio = (Portfolio)subject;
-            Display(portfolio);
+            Stock _subject = (Stock)subject;
+            Display(_subject);
+        }
+        public void Display(Stock stock)
+        {
+                Console.WriteLine("Stock Name: {0}", stock.StockName);
+                Console.WriteLine("Stock Value: {0}", stock.StockValue);
         }
 
-        public void Display(Portfolio portfolio)
+        public void DisplayPortfolio(Portfolio portfolio)
         {
             foreach (Portfolio.Pstock s in portfolio._stocks)
             {

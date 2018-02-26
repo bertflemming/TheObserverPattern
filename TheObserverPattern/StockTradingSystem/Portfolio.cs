@@ -10,10 +10,10 @@ namespace StockTradingSystem
 
     public class Portfolio : Subject, IObserver
     {
-        public struct Pstock
+        public class Pstock
         {
-            public Stock stock_;
-            public int stockAmount_;
+            public Stock stock_ { get; set; }
+            public int stockAmount_ { get; set; }
 
             public Pstock(Stock stock, int stockAmount)
             {
@@ -23,22 +23,20 @@ namespace StockTradingSystem
         }
 
         public List<Pstock> _stocks;
-        private double _totalValue;
-        
+        private double _totalValue { get; set; }
+
         public Portfolio()
         {
             _stocks = new List<Pstock>();
         }
         public void Update(Subject subject)
         {
-            Notify(this);
+            Notify(subject);
         }
 
         public void AddStock(Stock stock, int stockAmount)
         {
-            Pstock newStock;
-            newStock.stock_ = stock;
-            newStock.stockAmount_ = stockAmount;
+            Pstock newStock = new Pstock(stock, stockAmount);
 
             _stocks.Add(newStock);
 
@@ -47,21 +45,21 @@ namespace StockTradingSystem
 
         public void RemoveStock(Stock stock, int stockAmount)
         {
-            foreach (Pstock ps in _stocks)
+            for (int i = 0; i < _stocks.Count; i++)
             {
-                if (ps.stock_.StockName == stock.StockName)
+                if (_stocks[i].stock_.StockName == stock.StockName)
                 {
-                    ps.stockAmount_ -= stockAmount;
-                    if (newPstock.stockAmount_ <= 0)
+                    _stocks[i].stockAmount_ -= stockAmount;
+                    if (_stocks[i].stockAmount_ <= 0)
                     {
-                        _stocks.Remove(newPstock);
+                        _stocks.Remove(_stocks[i]);
                         stock.Detach(this);
                     }
                 }
             }
         }
 
-        public void CalcTotalStockValue()
+        public double CalcTotalStockValue()
         {
             double sum = 0;
             foreach (Pstock ps in _stocks)
@@ -70,6 +68,7 @@ namespace StockTradingSystem
             }
 
             _totalValue = sum;
+            return _totalValue;
         }
     }
 }

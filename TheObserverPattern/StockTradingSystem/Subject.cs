@@ -9,7 +9,12 @@ namespace StockTradingSystem
 {
     public class Subject
     {
-        private readonly List<IObserver> _observers = new List<IObserver>();
+        private readonly List<IObserver> _observers;
+
+        public Subject()
+        {
+            _observers = new List<IObserver>();
+        }
 
         public void Attach(IObserver observer)
         {
