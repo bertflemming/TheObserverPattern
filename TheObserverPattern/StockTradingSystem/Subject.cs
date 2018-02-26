@@ -9,11 +9,7 @@ namespace StockTradingSystem
 {
     public class Subject
     {
-        private readonly List<IObserver> _observers;
-        public Subject()
-        {
-            _observers = new List<IObserver>();
-        }
+        private readonly List<IObserver> _observers = new List<IObserver>();
 
         public void Attach(IObserver observer)
         {
@@ -27,9 +23,9 @@ namespace StockTradingSystem
 
         public void Notify(Subject subject)
         {
-            for (int i = 0; i < _observers.Count; i++)
+            foreach (IObserver o in _observers)
             {
-                _observers.ElementAt(i).Update(subject);
+                o.Update(subject);
             }
         }
     }

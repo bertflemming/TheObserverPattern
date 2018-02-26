@@ -11,6 +11,7 @@ namespace StockTradingSystem
         public void Update(Subject subject)
         {
             Portfolio portfolio = (Portfolio)subject;
+          
         }
 
         public void Display()

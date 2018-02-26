@@ -8,7 +8,7 @@ namespace StockTradingSystem
 {
     public class Portfolio : Subject, IObserver
     {
-        private List<Stock> _stocks;
+        public List<Stock> _stocks;
         public Portfolio()
         {
             _stocks = new List<Stock>();
