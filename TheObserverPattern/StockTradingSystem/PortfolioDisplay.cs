@@ -6,7 +6,26 @@ using System.Threading.Tasks;
 
 namespace StockTradingSystem
 {
-    class PortfolioDisplay
+    public class PortfolioDisplay : IObserver, IDisplay
     {
+        public void Update(Subject subject)
+        {
+            Portfolio portfolio = (Portfolio)subject;
+        }
+
+        public void Display()
+        {
+
+        }
+
+        public void AddPortfolio(Portfolio portfolio)
+        {
+            portfolio.Attach(this);
+        }
+
+        public void RemovePortfolio(Portfolio portfolio)
+        {
+            portfolio.Detach(this);
+        }
     }
 }

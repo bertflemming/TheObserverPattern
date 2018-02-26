@@ -8,21 +8,34 @@ namespace StockTradingSystem
 {
     public class Portfolio : Subject, IObserver
     {
-        Stock myStock = new Stock();
-        private double _stockAmount;
-        public void Update(double stockValue, string stockName, int stockAmount)
+        private List<Stock> _stocks;
+        public Portfolio()
         {
-            myStock.StockValue = stockValue;
-            myStock.StockName = stockName;
-
-            
+            _stocks = new List<Stock>();
+        }
+        public void Update(Subject subject)
+        {
+            Stock stock = (Stock) subject;
+            _stocks[_stocks.IndexOf(stock)].StockValue = stock.StockValue;
+            Notify(this);
         }
 
-        public void PortfolioChanged()
-        { }
+        public void AddStock(Stock stock, int stockAmount)
+        {
+            stock.StockAmount = stockAmount;
+            _stocks.Add(stock);
 
+           stock.Attach(this);
+        }
 
-
-        public int StockAmount { get; set; }
+        public void RemoveStock(Stock stock, int stockAmount)
+        {
+            stock.StockAmount -= stockAmount;
+            if (stock.StockAmount <= 0)
+            {
+                _stocks.Remove(stock);
+                stock.Detach(this);
+            }
+        }
     }
 }
