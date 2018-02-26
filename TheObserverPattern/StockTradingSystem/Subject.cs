@@ -9,9 +9,9 @@ namespace StockTradingSystem
 {
     public class Subject
     {
-        private readonly List<IObserver> _observers;
+        private readonly List<IObserver> _observers; // Liste med observers
 
-        public Subject()
+        public Subject() 
         {
             _observers = new List<IObserver>();
         }
@@ -28,7 +28,7 @@ namespace StockTradingSystem
 
         public void Notify(Subject subject)
         {
-            foreach (IObserver o in _observers)
+            foreach (IObserver o in _observers) // Alle observers bliver opdateret
             {
                 o.Update(subject);
             }

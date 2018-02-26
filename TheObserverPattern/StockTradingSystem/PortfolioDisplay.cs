@@ -8,18 +8,18 @@ namespace StockTradingSystem
 {
     public class PortfolioDisplay : IObserver, IDisplay
     {
-        public void Update(Subject subject)
+        public void Update(Subject subject) // Display kaldes når der sker ændringer
         {
             Stock _subject = (Stock)subject;
             Display(_subject);
         }
-        public void Display(Stock stock)
+        public void Display(Stock stock) // Udskriver info om stock
         {
                 Console.WriteLine("Stock Name: {0}", stock.StockName);
                 Console.WriteLine("Stock Value: {0}", stock.StockValue);
         }
 
-        public void DisplayPortfolio(Portfolio portfolio)
+        public void DisplayPortfolio(Portfolio portfolio) // Udskriver alle stocks i portfolio
         {
             foreach (Portfolio.Pstock s in portfolio._stocks)
             {

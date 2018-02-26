@@ -10,19 +10,19 @@ namespace StockTradingSystem
     public class Stock : Subject
     {
 
-        public Stock(string name)
+        public Stock(string name) // Tråd oprettes og startes ved oprettelse af nyt objekt
         {
             StockName = name;
             Thread stockThread = new Thread(UpdateStockValue);
             stockThread.Start();
         }
-        public void SetStockValue(double stockValue)
+        public void SetStockValue(double stockValue) // Kalder notify når StockValue ændres
         {
             StockValue = stockValue;
             Notify(this);
         }
 
-        public void UpdateStockValue()
+        public void UpdateStockValue() // Tråden der hvert 3. sekund ændrer StockValue
         {
             while (true)
             {

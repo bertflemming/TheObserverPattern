@@ -10,7 +10,7 @@ namespace StockTradingSystem
 
     public class Portfolio : Subject, IObserver
     {
-        public class Pstock
+        public class Pstock // Klasse der indeholder både stock og antallet af denne stock
         {
             public Stock stock_ { get; set; }
             public int stockAmount_ { get; set; }
@@ -29,7 +29,7 @@ namespace StockTradingSystem
         {
             _stocks = new List<Pstock>();
         }
-        public void Update(Subject subject)
+        public void Update(Subject subject) // kalder Notify
         {
             Notify(subject);
         }
@@ -43,7 +43,7 @@ namespace StockTradingSystem
             stock.Attach(this);
         }
 
-        public void RemoveStock(Stock stock, int stockAmount)
+        public void RemoveStock(Stock stock, int stockAmount) // Hvis stockAmount er <= 0 skal portfolio ikke længere være observer på den stock
         {
             for (int i = 0; i < _stocks.Count; i++)
             {
@@ -59,7 +59,7 @@ namespace StockTradingSystem
             }
         }
 
-        public double CalcTotalStockValue()
+        public double CalcTotalStockValue() // Udregner portfolioets stocks totale værdi
         {
             double sum = 0;
             foreach (Pstock ps in _stocks)
