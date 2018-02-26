@@ -1,41 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StockTradingSystem
 {
+
     public class Portfolio : Subject, IObserver
     {
-        public List<Stock> _stocks;
+        public struct Pstock
+        {
+            public Stock stock_;
+            public int stockAmount_;
+
+            public Pstock(Stock stock, int stockAmount)
+            {
+                stock_ = stock;
+                stockAmount_ = stockAmount;
+            }
+        }
+
+        public List<Pstock> _stocks;
+        private double _totalValue;
+        
         public Portfolio()
         {
-            _stocks = new List<Stock>();
+            _stocks = new List<Pstock>();
         }
         public void Update(Subject subject)
         {
-            Stock stock = (Stock) subject;
-            _stocks[_stocks.IndexOf(stock)].StockValue = stock.StockValue;
             Notify(this);
         }
 
         public void AddStock(Stock stock, int stockAmount)
         {
-            stock.StockAmount = stockAmount;
-            _stocks.Add(stock);
+            Pstock newStock;
+            newStock.stock_ = stock;
+            newStock.stockAmount_ = stockAmount;
 
-           stock.Attach(this);
+            _stocks.Add(newStock);
+
+            stock.Attach(this);
         }
 
         public void RemoveStock(Stock stock, int stockAmount)
         {
-            stock.StockAmount -= stockAmount;
-            if (stock.StockAmount <= 0)
+            foreach (Pstock ps in _stocks)
             {
-                _stocks.Remove(stock);
-                stock.Detach(this);
+                if (ps.stock_.StockName == stock.StockName)
+                {
+                    ps.stockAmount_ -= stockAmount;
+                    if (newPstock.stockAmount_ <= 0)
+                    {
+                        _stocks.Remove(newPstock);
+                        stock.Detach(this);
+                    }
+                }
             }
+        }
+
+        public void CalcTotalStockValue()
+        {
+            double sum = 0;
+            foreach (Pstock ps in _stocks)
+            {
+                sum += ps.stockAmount_ * ps.stock_.StockValue;
+            }
+
+            _totalValue = sum;
         }
     }
 }

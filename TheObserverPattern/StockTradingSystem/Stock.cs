@@ -11,7 +11,6 @@ namespace StockTradingSystem
         public Stock(string name)
         {
             StockName = name;
-            StockAmount = 0;
         }
         public void SetStockValue(double stockValue)
         {
@@ -20,6 +19,5 @@ namespace StockTradingSystem
         }
         public double StockValue { get; set; }
         public string StockName { get; private set; }
-        public int StockAmount { get; set; }
     }
 }
